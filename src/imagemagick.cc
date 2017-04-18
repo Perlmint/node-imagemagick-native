@@ -12,6 +12,16 @@
 #include <string.h>
 #include <exception>
 
+#if MAGICKCORE_QUANTUM_DEPTH == 16
+#define MSG "[INFO]: You are compiling node-imagemagick-native with Q16. nodejs only support 32bit integer. It occurs function calling target ambiguity"
+#if _MSC_VER
+#pragma message(MSG)
+#else
+#pragma message MSG
+#endif
+#undef MSG
+#endif
+
 // RAII to reset image magick's resource limit
 class LocalResourceLimiter
 {
